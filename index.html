@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACKS Portal - Student Academic Record</title>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .user-details h1 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .user-details p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .stat-card h3 {
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .stat-card p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .semester-header {
+            background-color: #e2e8f0;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success { background: #dcfce7; color: #15803d; }
+        .badge-pending { background: #f1f5f9; color: #94a3b8; border: 1px dashed #cbd5e1; }
+
+        .empty-row {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 20px !important;
+        }
+
+        @media (max-width: 600px) {
+            .header-card { flex-direction: column; text-align: center; }
+            body { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Student Information Header -->
+        <div class="header-card">
+            <div class="avatar">EA</div>
+            <div class="user-details">
+                <h1>Eniola Ayomikun Adewunmi</h1>
+                <p><strong>Matric No:</strong> ENG/MEG/2021/0849</p>
+                <p><strong>Department:</strong> Mechanical Engineering</p>
+                <p><strong>Faculty:</strong> Faculty of Engineering and Technology</p>
+                <p><strong>Institution:</strong> Ambrose Alli University (AAU)</p>
+            </div>
+        </div>
+
+        <!-- Summary Banner -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>4.86 / 5.00</h3>
+                <p>CUMULATIVE GPA</p>
+            </div>
+            <div class="stat-card">
+                <h3>First Class</h3>
+                <p>ACADEMIC STANDING</p>
+            </div>
+            <div class="stat-card">
+                <h3>100L - 300L</h3>
+                <p>COMPLETED LEVELS</p>
+            </div>
+            <div class="stat-card">
+                <h3 style="color: var(--success);">Active</h3>
+                <p>PORTAL STATUS</p>
+            </div>
+        </div>
+
+        <!-- 100 LEVEL -->
+        <div class="card">
+            <div class="card-title">
+                <span>100 Level Academic Performance (2023/2024 Session)</span>
+                <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="semester-header"><td colspan="4">First Semester 2023/2024 Session</td></tr>
+                        <tr><td>1</td><td>CHM101-*</td><td>General Chemistry I</td><td>A</td></tr>
+                        <tr><td>2</td><td>CHM107-*</td><td>General Chemistry Practical I</td><td>A</td></tr>
+                        <tr><td>3</td><td>GET101-AAUE*</td><td>Introduction to Computer Science</td><td>A</td></tr>
+                        <tr><td>4</td><td>GET102-AAUE*</td><td>Introduction to Statistics</td><td>A</td></tr>
+                        <tr><td>5</td><td>GST101-*</td><td>Communication in English Language</td><td>A</td></tr>
+                        <tr><td>6</td><td>GST102-*</td><td>Philosophy, Logic and Human Existence</td><td>A</td></tr>
+                        <tr><td>7</td><td>MTH101-*</td><td>Elementary Mathematics I (Algebra and Trigonometry)</td><td>A</td></tr>
+                        <tr><td>8</td><td>PHY101-*</td><td>General Physics I (Mechanics)</td><td>A</td></tr>
+                        <tr><td>9</td><td>PHY107-*</td><td>General Practical Physics I</td><td>A</td></tr>
+
+                        <tr class="semester-header"><td colspan="4">Second Semester 2023/2024 Session</td></tr>
+                        <tr><td>10</td><td>CHM112-*</td><td>General Chemistry II</td><td>A</td></tr>
+                        <tr><td>11</td><td>CHM118-*</td><td>General Chemistry Practical II</td><td>A</td></tr>
+                        <tr><td>12</td><td>GET111-*</td><td>Engineer in Society</td><td>A</td></tr>
+                        <tr><td>13</td><td>GET112-*</td><td>Engineering Graphics and Solid Modelling I</td><td>A</td></tr>
+                        <tr><td>14</td><td>GST111-*</td><td>Nigerian People and Culture</td><td>A</td></tr>
+                        <tr><td>15</td><td>GST112-AAUE*</td><td>History and Philosophy of Science</td><td>A</td></tr>
+                        <tr><td>16</td><td>MEE111-*</td><td>Introduction to Mechanical Engineering</td><td>A</td></tr>
+                        <tr><td>17</td><td>MTH111-*</td><td>Vectors and coordinate geometry</td><td>A</td></tr>
+                        <tr><td>18</td><td>MTH112-*</td><td>Elementary Mathematics II (Calculus)</td><td>A</td></tr>
+                        <tr><td>19</td><td>PHY113-*</td><td>General Physics III (Behaviour of Matter)</td><td>A</td></tr>
+                        <tr><td>20</td><td>PHY118-*</td><td>General Practical Physics II</td><td>A</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 200 LEVEL -->
+        <div class="card">
+            <div class="card-title">
+                <span>200 Level Academic Performance (2024/2025 Session)</span>
+                <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Units</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="semester-header"><td colspan="5">First Semester 2024/2025 Session</td></tr>
+                        <tr><td>21</td><td>ENT201-</td><td>Entrepreneurship and Innovation</td><td>2</td><td>A</td></tr>
+                        <tr><td>22</td><td>GET201-</td><td>Applied Electricity I</td><td>2</td><td>A</td></tr>
+                        <tr><td>23</td><td>GET201-AAUE</td><td>Applied Electricity I (Practical)</td><td>1</td><td>A</td></tr>
+                        <tr><td>24</td><td>GET202-</td><td>Engineering Materials</td><td>2</td><td>A</td></tr>
+                        <tr><td>25</td><td>GET204-</td><td>Students Workshop Practice</td><td>2</td><td>A</td></tr>
+                        <tr><td>26</td><td>GET205-</td><td>Fundamentals of Fluid Mechanics</td><td>2</td><td>A</td></tr>
+                        <tr><td>27</td><td>GET206-*</td><td>Fundamentals of Thermodynamics</td><td>2</td><td>A</td></tr>
+                        <tr><td>28</td><td>GET207-</td><td>Applied Mechanics</td><td>2</td><td>A</td></tr>
+                        <tr><td>29</td><td>GET209-</td><td>Engineering Mathematics I</td><td>3</td><td>A</td></tr>
+                        <tr><td>30</td><td>IPE202-AAUE</td><td>Engineering Materials Practical</td><td>1</td><td>A</td></tr>
+
+                        <tr class="semester-header"><td colspan="5">Second Semester 2024/2025 Session</td></tr>
+                        <tr><td>31</td><td>ENT211-</td><td>Venture Creation</td><td>2</td><td>A</td></tr>
+                        <tr><td>32</td><td>GET207-AAUE</td><td>Engineering Mechanics Practical</td><td>1</td><td>A</td></tr>
+                        <tr><td>33</td><td>GET210-</td><td>Engineering Mathematics II</td><td>4</td><td>A</td></tr>
+                        <tr><td>34</td><td>GET211-</td><td>Computing and Software Engineering</td><td>2</td><td>A</td></tr>
+                        <tr><td>35</td><td>GET213-AAUE</td><td>Fundamentals of Fluid Mechanics Practical</td><td>1</td><td>A</td></tr>
+                        <tr><td>36</td><td>GET215-AAUE*</td><td>Engineering Thermodynamics Practical</td><td>1</td><td>A</td></tr>
+                        <tr><td>37</td><td>GET218-</td><td>Strength of Materials</td><td>2</td><td>A</td></tr>
+                        <tr><td>38</td><td>GET218-AAUE</td><td>Strength of Materials Practical</td><td>1</td><td>A</td></tr>
+                        <tr><td>39</td><td>GET299-</td><td>SWEP I</td><td>2</td><td>A</td></tr>
+                        <tr><td>40</td><td>GST211-</td><td>Peace and Conflict Resolution</td><td>2</td><td>A</td></tr>
+                        <tr><td>41</td><td>MEE212-AAUE</td><td>Engineering Drawing</td><td>2</td><td>A</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 300 LEVEL -->
+        <div class="card">
+            <div class="card-title">
+                <span>300 Level Academic Performance</span>
+                <span class="badge badge-success">Completed</span>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Units</th>
+                            <th>Status</th>
+                            <th>LH</th>
+                            <th>PH</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="semester-header"><td colspan="7">300 Level First Semester</td></tr>
+                        <tr><td>GET 301</td><td>Engineering Mathematics III</td><td>3</td><td>E</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>GET 304</td><td>Technical Writing and Communication (including Seminar Presentation Skills)</td><td>3</td><td>C</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>GET 305</td><td>Engineering Statistics and Data Analytics</td><td>3</td><td>C</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>GET 306</td><td>Renewable Energy Systems Technology</td><td>3</td><td>C</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>GET 307</td><td>Introduction to Artificial Intelligence, Machine Learning and Convergent Technologies</td><td>3</td><td>C</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>MEE 301</td><td>Theory of Machines I</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>MEE 302</td><td>Computer-Aided Design and Manufacture</td><td>1</td><td>E</td><td>-</td><td>45</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 301</td><td>Engineering Metallurgy</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 302</td><td>Machine Drawing</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 303</td><td>Theory of Machines Practical</td><td>1</td><td>C</td><td>-</td><td>45</td><td>A</td></tr>
+
+                        <tr class="semester-header"><td colspan="7">300 Level Second Semester</td></tr>
+                        <tr><td>GET 312</td><td>Engineering Mathematics IV</td><td>3</td><td>C</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-GET 311</td><td>Engineering Management</td><td>3</td><td>C</td><td>45</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-EEE 313</td><td>Electromechanical Device and Machines</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 313</td><td>Strength of Materials II</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 314</td><td>Applied Fluid Mechanics I</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 315</td><td>Applied Engineering Thermodynamics I</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 316</td><td>Introduction to Machine Design</td><td>2</td><td>C</td><td>30</td><td>-</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 317</td><td>Fluid Mechanics Practical</td><td>1</td><td>C</td><td>-</td><td>45</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 318</td><td>Engineering Thermodynamics Practical 1</td><td>1</td><td>C</td><td>-</td><td>45</td><td>A</td></tr>
+                        <tr><td>AAUE-MEE 319</td><td>Engineering Metallurgy Practical</td><td>1</td><td>C</td><td>-</td><td>45</td><td>A</td></tr>
+                        <tr><td>GET 399</td><td>SWEP II</td><td>2</td><td>C</td><td>6 wks</td><td>-</td><td>A</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 400 LEVEL (EMPTY / PENDING) -->
+        <div class="card">
+            <div class="card-title">
+                <span>400 Level Academic Performance (Pending / SIWES)</span>
+                <span class="badge badge-pending">Empty</span>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Units</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" class="empty-row">No records entered for 400 Level.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 500 LEVEL (EMPTY / PENDING) -->
+        <div class="card">
+            <div class="card-title">
+                <span>500 Level Academic Performance (Pending / Final Year)</span>
+                <span class="badge badge-pending">Empty</span>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Title</th>
+                            <th>Units</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" class="empty-row">No records entered for 500 Level.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
